@@ -1,0 +1,8 @@
+addpath(strcat(getenv("HOME"), "/code/kynen/pssm-datac/daemons/mex"));
+
+function y = polynomial (x, coefs)
+  y = zeros (size (x));
+  for i = 1 : size (coefs)(2)
+    y = y + coefs(i) * power (x, i-1);
+  endfor
+endfunction

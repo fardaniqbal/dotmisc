@@ -1,0 +1,271 @@
+#
+# Fardan's ~/.screenrc file
+# Last updated 2010.10.07
+#
+
+# This is how one can set a reattach password:
+# password ODSJQf.4IJN7E    # "1234"
+
+# no annoying audible bell, please
+#vbell on
+
+# detach on hangup
+autodetach on
+
+# don't display the copyright page
+startup_message off
+
+# emulate .logout message
+pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ended."
+
+# advertise hardstatus support to $TERMCAP
+# termcapinfo  * '' 'hs:ts=\E_:fs=\E\\:ds=\E_\E\\'
+
+# make the shell in every window a login shell
+#shell -$SHELL
+
+# autoaka testing
+# shellaka '> |tcsh'
+# shellaka '$ |sh'
+
+# set every new windows hardstatus line to somenthing descriptive
+# defhstatus "screen: ^En (^Et)"
+
+defscrollback 1000
+
+# don't kill window after the process died
+# zombie "^["
+
+# enable support for the "alternate screen" capability in all windows
+altscreen on
+
+################
+#
+# xterm tweaks
+#
+
+#xterm understands both im/ic and doesn't have a status line.
+#Note: Do not specify im and ic in the real termcap/info file as
+#some programs (e.g. vi) will not work anymore.
+termcap  xterm hs@:cs=\E[%i%d;%dr:im=\E[4h:ei=\E[4l
+terminfo xterm hs@:cs=\E[%i%p1%d;%p2%dr:im=\E[4h:ei=\E[4l
+
+#80/132 column switching must be enabled for ^AW to work
+#change init sequence to not switch width
+#termcapinfo  xterm Z0=\E[?3h:Z1=\E[?3l:is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l
+
+# Make the output buffer large for (fast) xterms.
+#termcapinfo xterm* OL=10000
+termcapinfo xterm* OL=100
+
+# tell screen that xterm can switch to dark background and has function
+# keys.
+termcapinfo xterm 'VR=\E[?5h:VN=\E[?5l'
+termcapinfo xterm 'k1=\E[11~:k2=\E[12~:k3=\E[13~:k4=\E[14~'
+termcapinfo xterm 'kh=\EOH:kI=\E[2~:kD=\E[3~:kH=\EOF:kP=\E[5~:kN=\E[6~'
+
+# special xterm hardstatus: use the window title.
+termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+
+#terminfo xterm 'vb=\E[?5h$<200/>\E[?5l'
+termcapinfo xterm 'vi=\E[?25l:ve=\E[34h\E[?25h:vs=\E[34l'
+
+# emulate part of the 'K' charset
+termcapinfo   xterm 'XC=K%,%\E(B,[\304,\\\\\326,]\334,{\344,|\366,}\374,~\337'
+
+# xterm-52 tweaks:
+# - uses background color for delete operations
+termcapinfo xterm* be
+
+################
+#
+# wyse terminals
+#
+
+#wyse-75-42 must have flow control (xo = "terminal uses xon/xoff")
+#essential to have it here, as this is a slow terminal.
+termcapinfo wy75-42 xo:hs@
+
+# New termcap sequences for cursor application mode.
+termcapinfo wy* CS=\E[?1h:CE=\E[?1l:vi=\E[?25l:ve=\E[?25h:VR=\E[?5h:VN=\E[?5l:cb=\E[1K:CD=\E[1J
+
+################
+#
+# other terminals
+#
+
+# make hp700 termcap/info better
+termcapinfo  hp700 'Z0=\E[?3h:Z1=\E[?3l:hs:ts=\E[62"p\E[0$~\E[2$~\E[1$}:fs=\E[0}\E[61"p:ds=\E[62"p\E[1$~\E[61"p:ic@'
+
+# Extend the vt100 desciption by some sequences.
+termcap  vt100* ms:AL=\E[%dL:DL=\E[%dM:UP=\E[%dA:DO=\E[%dB:LE=\E[%dD:RI=\E[%dC
+terminfo vt100* ms:AL=\E[%p1%dL:DL=\E[%p1%dM:UP=\E[%p1%dA:DO=\E[%p1%dB:LE=\E[%p1%dD:RI=\E[%p1%dC
+termcapinfo linux C8
+# old rxvt versions also need this
+# termcapinfo rxvt C8
+
+
+################
+#
+# keybindings
+#
+
+# Remove some stupid and/or dangerous key bindings
+bind K
+bind k
+bind ^k
+bind C      # clear
+bind W      # width
+bind ^s     # xoff
+bind s      # xoff
+bind ^q     # xon
+bind q      # xon
+bind \"     # windowlist -b
+bind L      # login
+bind D      # pow_detach
+bind B      # pow_break
+bind ","    # licence
+bind -      # select -
+bind ^g     # vbell
+bind v      # version
+bind r      # wrap
+bind ^r     # wrap
+bind .
+bind ^\
+bind \\
+bind ^h
+bind h
+bind H      # log
+bind I      # login on
+bind O      # login off
+bind ^?     # prev
+bind ^@     # next
+bind ' '    # next
+
+# Also remove key bindings for commands I rarely or never use, just so I don't
+# use them by accident.
+bind <      # readbuf
+bind >      # writebuf
+bind =      # removebuf
+bind \'     # select
+bind S      # split
+bind ^I     # focus
+bind Q      # only
+bind i      # info
+bind ^W     # windows
+bind w      # windows
+bind ^V     # digraph
+bind ^B     # break
+bind b      # break
+bind F      # fit
+bind ^F     # flow
+bind f      # flow
+bind ^T     # time
+bind t      # time
+
+# Yet another hack:
+# Prepend/append register [/] to the paste if ^a^] is pressed.
+# This lets me have autoindent mode in vi.
+#register [ "\033:se noai\015a"
+#register ] "\033:se ai\015a"
+#bind ^] paste [.]
+
+################
+#
+# default windows
+#
+
+# screen -t local 0
+# screen -t mail 1 elm
+# screen -t 40 2 rlogin server
+
+################
+#
+# window settings
+#
+
+# Default windowlist header format: windowlist title  "Num Name%=Flags"
+# Default windowlist line format:   windowlist string "%3n %t%=%f"
+
+# Nicer formatting for the window list's header, with date/time display.
+windowlist title  "%{= BW}  ID    Name %50=%+-010=%{= BW}%D, %M %d  %C %A%{-}%-08= Flags%=  %{-}"
+
+# Make items in window list display a '-' if none of its flags are set.
+windowlist string " %3n    %t %-08= %?%f%:-%?%=  "
+
+# Marking / message printing default: sorendition "=s dd"
+sorendition "=r WB"
+
+# Default hardstatus: hardstatus string "[screen %n%?: %t%?] %h"
+# hardstatus alwayslastline "%-Lw%50>%n%f* %t%+Lw%<"
+# hardstatus alwayslastline "%{= Kw}%-Lw%50>%{+u .W}%n %t%{-}%?%+Lw%: %?%<%=%{-}"
+hardstatus lastline "screen %n%?: %t%? %h"
+
+# caption always "%3n %t%? @%u%?%? [%h]%?%=%c"
+# hardstatus alwaysignore
+# hardstatus alwayslastline "%Lw"
+
+# bind = resize =
+# bind + resize +1
+# bind - resize -1
+# bind _ resize max
+#
+# attrcolor u "-u b"
+# attrcolor b "R"
+
+################
+#
+# more key bindings
+#
+
+# Make some default bindings easier to type.
+bind ";"    colon
+bind h      help
+bind ^h     help
+
+# Screen's default escape sequence (C-a) is used in emacs, bash, irssi, and
+# a whole bunch of other programs, so change it to C-j instead.
+escape "^j^j"
+
+# Set C-j l and C-j C-l to get a window list instead of C-j "\"".
+bind l      windowlist -b
+bind ^l     windowlist -b
+
+bind o      other
+bind ^o     other
+bind b      other
+bind ^b     other
+
+# Since "M" is bound to "monitor", it seems a bit more consistent to use "S"
+# for "silence", rather than the default "_".
+bind _
+bind S      silence
+
+# Copy mode key bindings.
+#markkeys "@=F=f"        # nop
+#markkeys "h=^B=b:l=^F=f:j=^N=n:k=^P=p:0=^A=a:$=^E=e"  # emacs-style
+markkeys "e=f:j=^N=n:k=^P=p:0=^A:$=^E"
+
+################
+#
+# blanker setup
+#
+# The command "blankerprg [PROGRAM ARGS]" specifies the program to be run by
+# the "blanker" command.  This can be used with the "idle" command to set up a
+# screen saver of sorts.
+#
+# The command "idle [TIMEOUT [CMD ARGS]]" runs command CMD after the user has
+# been idle for TIMEOUT seconds.  CMD is usually "blanker", which runs the
+# program specified by "blankerprg".
+#
+# For example, the following commands run the "top" program after 600 seconds
+# have passed without any user input:
+#
+# blankerprg top
+# idle 600 blanker
+#
+# Using the idle command with a TIMEOUT of zero disables the idle timer
+# (meaning the blanker program will never be run).
+#
+blankerprg cmatrix -sba -u 3 -C green
+idle 0

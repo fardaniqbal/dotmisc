@@ -1,0 +1,25 @@
+# ~/.inputrc
+# Updated 2016.11.23
+
+# Path/filename completion
+set completion-ignore-case on
+set show-all-if-ambiguous off
+
+# Enable this to match filenames starting with "."
+set match-hidden-files off
+
+# Append "/" to all dirnames
+set mark-directories on
+set mark-symlinked-directories on
+
+# On TAB: instead of listing all possible completions (the default behavior),
+# insert the first completion and, on subsequent TABs, step through the list of
+# other possible completions, inserting each match in turn.  (You can still see
+# the full list of possible completions by pressing ALT-?).
+#TAB: menu-complete
+
+# Shift-TAB for cycling backwards through completions list.
+"\e[Z": "\e-1\t"
+
+# This can be none, visible, or audible
+#set bell-style none
