@@ -224,10 +224,10 @@ bind h      help
 bind ^h     help
 
 # Screen's default escape sequence (C-a) is used in emacs, bash, irssi, and
-# a whole bunch of other programs, so change it to C-j instead.
-escape "^j^j"
+# a whole bunch of other programs, so change it to C-space instead.
+escape ^@a
 
-# Set C-j l and C-j C-l to get a window list instead of C-j "\"".
+# Set <prefix>-l and <prefix> C-l to get a window list instead of <prefix> "\"".
 bind l      windowlist -b
 bind ^l     windowlist -b
 
